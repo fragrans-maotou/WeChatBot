@@ -1,0 +1,22 @@
+{
+  "name": "wechatbot",
+  "version": "1.0.0",
+  "description": "微信使用的小机器人",
+  "main": "DaKaBot.js",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1621151730/WeChatBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1621151730/WeChatBot/issues"
+  },
+  "homepage": "https://github.com/1621151730/WeChatBot#readme",
+  "dependencies": {
+    "qrcode-terminal": "^0.12.0",
+    "wechaty": "^1.20.2",
+    "wechaty-puppet-whatsapp": "^1.16.0"
+  }
+}
