@@ -1,0 +1,99 @@
+[{
+  "_id": {
+    "$oid": "64a632db2e165e2355429961"
+  },
+  "user_name": "🐯",
+  "integral": 100,
+  "id": 100001,
+  "create_time": "2023-07-06 11：11",
+  "__v": 0,
+  "rank": 1
+},
+{
+  "_id": {
+    "$oid": "64a662ea2e165e2355429962"
+  },
+  "user_name": "🐱",
+  "integral": 99,
+  "id": 100002,
+  "create_time": "2023-07-06 11：11",
+  "__v": 0,
+  "rank": 2
+},
+{
+  "_id": {
+    "$oid": "64a682934fa2c1bc12d938c5"
+  },
+  "id": 100005,
+  "rank": 9,
+  "user_name": "美丽的pp公主",
+  "integral": 0,
+  "create_time": "2023-07-06 17:00:03",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64a694f5af98adda3d2765a0"
+  },
+  "id": 100013,
+  "rank": 4,
+  "user_name": "闪电",
+  "integral": 2,
+  "create_time": "2023-07-06 18:18:29",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64a6960baf98adda3d2765c7"
+  },
+  "id": 100014,
+  "rank": 5,
+  "user_name": "Haven",
+  "integral": 1,
+  "create_time": "2023-07-06 18:23:07",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64a6960faf98adda3d2765cf"
+  },
+  "id": 100015,
+  "rank": 6,
+  "user_name": "P.PPPP",
+  "integral": 1,
+  "create_time": "2023-07-06 18:23:11",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64a6961daf98adda3d2765e1"
+  },
+  "id": 100016,
+  "rank": 7,
+  "user_name": "Guts",
+  "integral": 1,
+  "create_time": "2023-07-06 18:23:25",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64a6967baf98adda3d2765ef"
+  },
+  "id": 100017,
+  "rank": 8,
+  "user_name": "Mr. Hsu",
+  "integral": 1,
+  "create_time": "2023-07-06 18:24:59",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64a69685af98adda3d2765fc"
+  },
+  "id": 100018,
+  "rank": 3,
+  "user_name": "葉子",
+  "integral": 3,
+  "create_time": "2023-07-06 18:25:09",
+  "__v": 0
+}]
