@@ -4,7 +4,8 @@
  * @LastEditors: wangwendie
  * @Description: id的模块
  */
-const Ids = require("../models/ids")
+
+import Ids from "../models/ids.js";
 
 class BaseComponent {
   constructor() {
@@ -34,4 +35,4 @@ class BaseComponent {
 
 }
 
-module.exports = BaseComponent;
+export default BaseComponent;

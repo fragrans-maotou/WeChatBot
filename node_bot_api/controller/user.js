@@ -5,9 +5,10 @@
  * @Description:
  */
 
-const dtime = require("time-formater")
-const UserModel = require("../models/user.js");
-const BaseComponent = require("../prototype/baseComponent.js");
+import dtime from "time-formater";
+import UserModel from "../models/user.js";
+import BaseComponent from "../prototype/baseComponent.js";
+
 
 class User extends BaseComponent {
 
@@ -151,4 +152,4 @@ class User extends BaseComponent {
 
 }
 
-module.exports = new User();
+export default new User();

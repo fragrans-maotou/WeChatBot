@@ -5,9 +5,9 @@
  * @Description: mongodb的连接
  */
 
-const mongoose = require("mongoose")
+import mongoose from "mongoose";
 
-module.exports = (config) => {
+export default (config) => {
 
   mongoose.connect(config.url, {
     useNewUrlParser: true,

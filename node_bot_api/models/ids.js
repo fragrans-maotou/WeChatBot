@@ -4,7 +4,7 @@
  * @LastEditors: wangwendie
  * @Description:
  */
-const mongoose = require("mongoose");
+import mongoose from "mongoose";;
 
 const Schema = mongoose.Schema;
 
@@ -25,4 +25,4 @@ Ids.findOne().then(data => {
   throw new Error(err);
 })
 
-module.exports = Ids;
+export default Ids;

@@ -1,7 +1,14 @@
+/*
+ * @Author: wangwendie
+ * @Date: 2023-07-05 17:51:16
+ * @LastEditors: wangwendie
+ * @Description:
+ */
 
-const user = require("./user.js");
+import user from "./user.js";
+import chatgpt from "./chatgpt.js";
 
-module.exports = (app) => {
+export default (app) => {
   app.use(user);
-
+  app.use(chatgpt);
 }

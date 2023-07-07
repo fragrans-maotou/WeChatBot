@@ -5,7 +5,7 @@
  * @Description:
  */
 
-const mongoose = require("mongoose");
+import mongoose from "mongoose";;
 
 const Schema = mongoose.Schema;
 
@@ -24,4 +24,4 @@ const User = mongoose.model('User', userSchema);
 // 在这里使用管道技术
 // 准备准备学习
 
-module.exports = User;
+export default User;

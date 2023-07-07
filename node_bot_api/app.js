@@ -4,10 +4,30 @@
  * @LastEditors: wangwendie
  * @Description:
  */
-const express = require("express");
-const router = require("./routes/index.js");
-const db = require("./mongodb/db.js");
+import express from "express";
+import dotenv from "dotenv";
+import router from "./routes/index.js";
+import db from "./mongodb/db.js";
+
 const app = express();
+
+// 安排请求头
+app.all("*", (req, res, next) => {
+  const { origin, Origin, referer, Referer } = req.headers;
+  const allowOrigin = origin || Origin || referer || Referer || "*";
+  res.header("Access-Control-Allow-Origin", allowOrigin);
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Credentials", true);
+
+  if (req.method == 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+})
+
+dotenv.config();
 
 const config = {
   port: 8001,
