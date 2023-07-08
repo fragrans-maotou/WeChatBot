@@ -5,10 +5,11 @@
  * @Description:
  */
 
-import user from "./user.js";
 import chatgpt from "./chatgpt.js";
-
+import user from "./user.js";
+import weather from "./weather.js";
 export default (app) => {
   app.use(user);
   app.use(chatgpt);
+  app.use(weather);
 }

@@ -4,11 +4,11 @@
  * @LastEditors: wangwendie
  * @Description:
  */
-import express from "express";
 import dotenv from "dotenv";
-import router from "./routes/index.js";
+import express from "express";
 import db from "./mongodb/db.js";
-
+import router from "./routes/index.js";
+dotenv.config();
 const app = express();
 
 // 安排请求头
@@ -27,11 +27,9 @@ app.all("*", (req, res, next) => {
   }
 })
 
-dotenv.config();
-
 const config = {
   port: 8001,
-  url: 'mongodb://localhost:27017/weChat',
+  url: 'mongodb://localhost:27017/WeChat',
 }
 
 app.use(express.json());

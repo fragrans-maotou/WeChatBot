@@ -35,7 +35,12 @@ class User extends BaseComponent {
         id: user_id,
         integral: 0,
         create_time: dtime().format('YYYY-MM-DD HH:mm:ss'),
-        rank: -1
+        rank: -1,
+        city:{
+          name:"",
+          longitude:0,
+          latitude:0
+        }
       }
       await UserModel.create(newUser);
       res.send({
@@ -150,6 +155,34 @@ class User extends BaseComponent {
     }
   }
 
+  async updataCity(req, res, next){
+    const { user_name, area, location } = req.query;
+    const [lon, lat] = location.split(",");
+    try {
+      console.log(user_name, area,lon, lat);
+      const resultInfo = await UserModel.updateOne(
+        { user_name: user_name }, 
+        { $set: { 
+            city:{
+              name: area,
+              longitude: lon,
+              latitude: lat,
+            }
+          }
+        },{multi:false});
+      res.send({
+        code: 200,
+        message: "地址保存成功了耶",
+        result: resultInfo
+      });
+    } catch (err) {
+      res.send({
+        status: 0,
+        message: err.message
+      })
+      return
+    }
+  }
 }
 
 export default new User();

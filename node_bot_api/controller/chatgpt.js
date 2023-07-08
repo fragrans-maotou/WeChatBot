@@ -1,5 +1,4 @@
 
-import { Configuration, OpenAIApi } from "openai";
 import { HttpsProxyAgent } from "https-proxy-agent";
 import nodeFetch from "node-fetch";
 
@@ -29,6 +28,7 @@ class ChatGPT {
   }
 
   async example (req, res, next) {
+    console.log(apiKey);
     // 发起请求
     nodeFetch(apiUrl, {
       method: "POST",

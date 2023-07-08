@@ -5,7 +5,8 @@
  * @Description:
  */
 
-import mongoose from "mongoose";;
+import mongoose from "mongoose";
+;
 
 const Schema = mongoose.Schema;
 
@@ -15,6 +16,11 @@ const userSchema = new Schema({
   user_name: String,
   integral: Number,
   create_time: String,
+  city:{
+    name: String,
+    longitude: String,
+    latitude: String
+  }
 })
 
 userSchema.index({ id: 1 });

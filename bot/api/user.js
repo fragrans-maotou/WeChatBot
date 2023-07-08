@@ -44,5 +44,14 @@ export const updataIntegral = (data) => {
   })
 }
 
+// 修改城市
+export const updataCity = (data) => {
+  return request({
+    url: "/updata_city",
+    method: "get",
+    params: data
+  })
+}
+
 // http://localhost:8001/updata_integral?type=1&user_name=🐯
 
