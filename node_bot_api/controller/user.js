@@ -19,13 +19,15 @@ class User extends BaseComponent {
   }
 
   async registerUser (req, res, next) {
-    const { user_name } = req.body;
+    const { user_name, wx_id } = req.body;
 
     try {
       if (!user_name) {
         throw new Error('缺少参数：用户名不能为空');
+      }else if (!wx_id) {
+        throw new Error('缺少参数：微信ID不能为空');
       }
-      const userinfo = await UserModel.findOne({ user_name }, "-_id -__v");
+      const userinfo = await UserModel.findOne({ wx_id }, "-_id -__v");
       if (userinfo) {
         throw new Error('注册失败，用户已经被注册');
       }
@@ -40,11 +42,12 @@ class User extends BaseComponent {
           name:"",
           longitude:0,
           latitude:0
-        }
+        },
+        wx_id: wx_id
       }
       await UserModel.create(newUser);
       res.send({
-        status: 200,
+        code: 200,
         message: '注册成功'
       });
 
@@ -54,7 +57,7 @@ class User extends BaseComponent {
     } catch (err) {
       console.log("什么错误:", err);
       res.send({
-        status: 0,
+        code: 0,
         message: err.message
       })
       return;
@@ -62,10 +65,9 @@ class User extends BaseComponent {
   }
 
   async userInfo (req, res, next) {
-    const { user_name } = req.query;
-    console.log("user_name", user_name);
+    const { wx_id } = req.query;
     try {
-      const userinfo = await UserModel.findOne({ user_name }, "-_id -__v");
+      const userinfo = await UserModel.findOne({ wx_id }, "-_id -__v");
       res.send({
         code: 200,
         result: userinfo
@@ -73,7 +75,7 @@ class User extends BaseComponent {
     } catch (err) {
       console.log(err);
       res.send({
-        status: 0,
+        code: 10001, // 用户查找失败或者请求失败
         message: err.message
       })
       return
@@ -95,7 +97,7 @@ class User extends BaseComponent {
     } catch {
       console.log(err);
       res.send({
-        status: 0,
+        code: 0,
         message: err.message
       })
       return
@@ -123,7 +125,7 @@ class User extends BaseComponent {
     } catch (err) {
       console.error(err);
       res.send({
-        status: 0,
+        code: 0,
         message: err.message
       })
       return
@@ -132,10 +134,10 @@ class User extends BaseComponent {
 
   async updataIntegral (req, res, next) {
     // 默认：type：0 为加
-    const { type = 0, user_name } = req.query;
+    const { type = 0, wx_id } = req.query;
     let numSize = (type == 0 ? 1 : -1);
     try {
-      const userInfo = await UserModel.updateOne({ user_name: user_name }, { $inc: { integral: numSize } });
+      const userInfo = await UserModel.updateOne({ wx_id: wx_id }, { $inc: { integral: numSize } });
       res.send({
         code: 200,
         message: "更新成功",
@@ -148,7 +150,7 @@ class User extends BaseComponent {
       }
     } catch (err) {
       res.send({
-        status: 0,
+        code: 0,
         message: err.message
       })
       return
@@ -156,12 +158,11 @@ class User extends BaseComponent {
   }
 
   async updataCity(req, res, next){
-    const { user_name, area, location } = req.query;
+    const { wx_id, area, location } = req.query;
     const [lon, lat] = location.split(",");
     try {
-      console.log(user_name, area,lon, lat);
       const resultInfo = await UserModel.updateOne(
-        { user_name: user_name }, 
+        { wx_id: wx_id }, 
         { $set: { 
             city:{
               name: area,
@@ -177,7 +178,7 @@ class User extends BaseComponent {
       });
     } catch (err) {
       res.send({
-        status: 0,
+        code: 0,
         message: err.message
       })
       return

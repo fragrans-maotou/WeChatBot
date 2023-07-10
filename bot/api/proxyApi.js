@@ -1,6 +1,6 @@
 import request from "../utils/request/index.js";
 
-export const weather = (data) => {
+export const weather_api = (data) => {
   return request({
     url: "/weather_forecast",
     method: "get",

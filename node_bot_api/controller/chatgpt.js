@@ -42,7 +42,7 @@ class ChatGPT {
 
     console.log(assistantMessage);
     res.send({
-      status: 200,
+      code: 200,
       message: '请求成功',
       result: assistantMessage
     })

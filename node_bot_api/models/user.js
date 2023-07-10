@@ -20,7 +20,8 @@ const userSchema = new Schema({
     name: String,
     longitude: String,
     latitude: String
-  }
+  },
+  wx_id:String
 })
 
 userSchema.index({ id: 1 });

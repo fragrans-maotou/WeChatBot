@@ -18,9 +18,7 @@ class Weather {
     let openweatherapi = "https://api.openweathermap.org/data/3.0/onecall";
     const { lat, lon } = req.query;
     const weatherkey = process.env.OPENWEATHER_API_KEY;// 天气 API 密钥
-    console.log(req.query);
-
-    console.log("------请求weatherForecast", req.query);
+    
     try {
       const response = await request({
         url: openweatherapi,
@@ -54,7 +52,6 @@ class Weather {
     try {
 
       let areaTrim = area.trim();
-      console.log("area", area.trim(), gaodekey);
       const response = await request({
         url: gaodeapi,
         method: "get",
@@ -72,6 +69,7 @@ class Weather {
         result: geocodes
       })
     } catch (err) {
+      console.log(err);
       res.send({
         code: 10001,
         message: "请求经纬度报错了！,你没有骗我吧，你确定有这个地名"

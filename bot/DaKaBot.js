@@ -6,10 +6,9 @@
  */
 import qrcodeTerminal from "qrcode-terminal";
 import { ScanStatus, WechatyBuilder, log } from "wechaty";
-import { geocode, weather, openAI_2D_chatGPT } from "./api/proxyApi.js";
-import { registerUser, updataCity, updataIntegral, userInfo, userRankingList } from "./api/user.js";
-import { parseTime } from "./utils/common.js";
-import { Weather } from "./models/index.js";
+import { openAI_2D_chatGPT } from "./api/proxyApi.js";
+import { userInfo } from "./api/user.js";
+import { SportsCheckin, Weather } from "./models/index.js";
 
 let botName = "DaKaBot";
 // 展示终端
@@ -36,8 +35,10 @@ async function onMessage (message) {
     // log.info(botName, `Message: ${message}`);
     const contact = message.talker();
     // console.log("message", message);
+    // console.log("contact", contact);
     // 获取发送人的姓名
     const sendName = contact.payload.name;
+    const sendWxId = contact.payload.id;
     const text = message.text(); // 获取发送人的消息
     const room = message.room(); // 获取发送人的房间
     const messageType = message.type(); // 消息类型
@@ -46,81 +47,28 @@ async function onMessage (message) {
 
     log.info(botName, `Message: 发送人${sendName} -- ${text} -- ${room} ---${messageType} `);
 
-    if (text === "打卡") {
-      updataIntegral({ user_name: sendName, tyep: 0 }).then(async (res) => {
-        if (res.result.modifiedCount == 1) {
-          await message.say(`${sendName}, 收到了，你的打卡，已打卡成功`);
-        } else {
-          await message.say(`${sendName}, 你都没有注册，你打什么卡`);
-        }
-      })
-    }
-
-
     if (isByMention) {
-
+      // console.log(` ${sendName}，艾特我，是有什么事情？`)
       if (isRecalled) {
         await message.say(`${sendName}, 我不处理引用消息`);
         return
       }
 
-      console.log(` ${sendName}，艾特我，是有什么事情？`)
+      // 获取用户的消息+用户@的诉求
       let mentionText = await message.mentionText();
-      let userinfo = await userInfo({ user_name: sendName });
-      let newWeather = new Weather(message, userinfo);
-      newWeather.activateRule("天气", mentionText);
+      let userinfo = await userInfo({ wx_id: sendWxId });
 
-      if (/我的积分/gm.test(mentionText)) {
-        if (!userinfo.result) {
-          await message.say(`${sendName}, 你都没有注册，你打什么卡`);
-        } else {
-          await message.say(`${sendName}, 你目前的积分为：${userinfo.result.integral}`);
-        }
-        return
-      }
-
-      if (/排名/gm.test(mentionText)) {
-        userRankingList().then(async (res) => {
-          await message.say(res.result)
-        })
-        return
-      }
-
-      if (/注册/gm.test(mentionText)) {
-        registerUser({ user_name: sendName }).then(async (res) => {
-          await message.say(res.message)
-        })
-        return
-      }
-
-      if (/我的位置/gm.test(mentionText)) {
-        try {
-          let resultGeo = await geocode({ area: mentionText });
-          if (resultGeo.code == 10001) {
-            await message.say(resultGeo.message)
-            return
-          }
-          let location = resultGeo.result.location;
-          let formatted_address = resultGeo.result.formatted_address;
-
-          let resultUpdataCity = await updataCity({
-            user_name: sendName,
-            area: formatted_address,
-            location: location,
-          });
-          await message.say(resultUpdataCity.message);
-
-          await messageWeather(message, userinfo, formatted_address, location);
-        } catch (error) {
-          await message.say("哈，不怪我，位置报错失败了！")
-        }
-        return
-      }
-
-      // if (/天气/gm.test(mentionText)) {
-      //   messageWeather(message, userinfo);
-      //   return
-      // }
+      // 创建天气的对象
+      let newWeather = new Weather(message, userinfo, mentionText);
+      newWeather.messageWeather("天气");
+      newWeather.getGeoLocation("我的位置");
+      
+      // 打卡模块
+      let newSportsCheckin = new SportsCheckin(message, userinfo, mentionText);
+      newSportsCheckin.checkin("打卡");
+      newSportsCheckin.getMyIntegral("我的积分");
+      newSportsCheckin.getRankingList("排名");
+      newSportsCheckin.registerSportsCheckin("注册");
 
       if (/GPT/gm.test(mentionText)) {
         if (sendName != '🐯') {
@@ -136,73 +84,6 @@ async function onMessage (message) {
       }
 
     }
-  }
-}
-
-
-
-
-// 天气
-const messageWeather = async (message, userinfo, address, location = "") => {
-  if (!userinfo.result) {
-    await message.say("哦~~~，你是不是没有告诉我，你的位置")
-    return;
-  }
-  let userCity = userinfo.result.city;
-  if (location.length != 0) {
-    const [lon, lat] = location.split(",");
-    userCity.name = address;
-    userCity.latitude = lat;
-    userCity.longitude = lon;
-  }
-  const weatherText = (item, type) => {
-    const Status = {
-      "01": '☀',
-      "02": '🌤️',
-      "03": '🌥️',
-      "04": '☁️',
-      "09": '🌦️',
-      "10": '🌧️',
-      "11": '🌩️',
-      "13": '🌨️',
-      "50": '🌪️',
-    };
-
-    let baseTime = parseTime(item.dt, "{y}年{m}月{d}日"); // 日期
-    let sunriseTime = parseTime(item.sunrise, "{h}:{i}:{s}"); // 日出
-    let sunset = parseTime(item.sunset, "{h}:{i}:{s}"); // 日落
-    let temp = `当前温度:${item.temp} ℃ `; // 温度范围
-    let tempRange = `温度范围:${item.temp.min} ℃ -- ${item.temp.max} ℃ `; // 温度范围
-    let wind_speed = `风速度${item.wind_speed}米/秒`; // 风速
-    let wind_deg = `吹风角度,北偏南${item.wind_deg}°`; // 吹风的角度
-    let pop = `降雨概率: ${(item.pop * 100).toFixed(2)}%`; // 下雨的概率
-    let rain = `降雨量: ${item.rain != undefined ? item.rain : 0}毫米/小时`; // 下雨的概率
-    let uvi = `当日紫外线指数最大值: ${item.uvi}`; // 下雨的概率
-    // weather
-    let weatherDescription = item.weather[0].description;
-    let icon = Status[item.weather[0].icon.slice(0, 2)];
-    // console.log(item.weather[0].icon, icon);
-    let baseMessage = `坐标：${userCity.name}\n日期：${baseTime}\n今日预计天气：${weatherDescription} ${icon}`
-    if (type == "daily") {
-      return `${baseMessage}\n日出:${sunriseTime},日落:${sunset}\n${tempRange}\n${wind_speed}\n${wind_deg}\n${pop}\n${rain}\n${uvi}\n\n`
-    } else if (type == "hourly") {
-      return `一小时后预计天气：${weatherDescription} ${icon}\n${temp}\n${wind_speed}\n${wind_deg}\n${pop}\n\n`
-    }
-
-  }
-  try {
-    let weatherInfo = await weather({
-      lat: userCity.latitude,
-      lon: userCity.longitude
-    })
-    let current = weatherInfo.result.current;
-    let hourly = weatherInfo.result.hourly;
-    let daily = weatherInfo.result.daily;
-    let messageDailyTemplate = weatherText(daily[0], "daily")
-    let messageHourlyTemplate = weatherText(hourly[1], "hourly")
-    await message.say(messageDailyTemplate + "\n" + messageHourlyTemplate);
-  } catch (err) {
-    await message.say("哼狗天气api，出问题了，🐎")
   }
 }
 
