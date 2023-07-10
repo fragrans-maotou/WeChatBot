@@ -29,7 +29,7 @@ app.all("*", (req, res, next) => {
 
 const config = {
   port: 8001,
-  url: 'mongodb://localhost:27017/WeChat',
+  url: 'mongodb://localhost:27017/weChat',
 }
 
 app.use(express.json());

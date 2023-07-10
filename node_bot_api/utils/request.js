@@ -12,7 +12,6 @@ const handleConfig = (config) => {
   if (config.method == "post") {
     config.data = config.params;
   }
-  
   return config;
 }
 
