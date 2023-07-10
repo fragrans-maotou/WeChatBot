@@ -12,7 +12,7 @@ import ChatGPTAPI from "../controller/chatgpt.js";
 const router = express.Router();
 
 
-router.get("/chatgpt", ChatGPTAPI.example)
-
+router.get("/openai_chatgpt", ChatGPTAPI.OpenAIChatGPT)
+router.get("/bing_chatgpt", ChatGPTAPI.BingChatGPT)
 
 export default router;

@@ -1,4 +1,4 @@
-
+import { BingChat } from 'bing-chat';
 import { HttpsProxyAgent } from "https-proxy-agent";
 import nodeFetch from "node-fetch";
 
@@ -15,19 +15,13 @@ const requestData = {
   messages: [{ role: "user", content: "Hello world" }],
 };
 
-// const configuration = new Configuration({
-//   organization: "org-nKlKYGfcVRc8LERF2H2ymqcM",
-//   apiKey: process.env.OPENAI_API_KEY,
-// });
-// const openai = new OpenAIApi(configuration);
 
 class ChatGPT {
   constructor() {
-    this.username = "u1883940892591256+UnitedKingdom";
-    this.password = "hOIunTn8HjHv";
+ 
   }
 
-  async example (req, res, next) {
+  async OpenAIChatGPT (req, res, next) {
     console.log(apiKey);
     // 发起请求
     nodeFetch(apiUrl, {
@@ -70,6 +64,15 @@ class ChatGPT {
     // return assistantMessage;
     // const result = await api.sendMessage('你好')
     // console.log(assistantMessage)
+  }
+
+  async BingChatGPT (req, res, next){
+    const api = new BingChat({
+      cookie: process.env.BING_COOKIE
+    })
+  
+    const result = await api.sendMessage('Hello World!')
+    console.log(result.text)
   }
 }
 

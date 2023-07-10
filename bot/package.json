@@ -4,6 +4,9 @@
   "description": "微信使用的小机器人",
   "main": "DaKaBot.js",
   "type": "module",
+  "scripts": {
+    "dev": "node DaKaBot.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/1621151730/WeChatBot.git"

@@ -36,10 +36,10 @@ async function onMessage (message) {
   const sendName = contact.payload.name;
   const text = message.text(); // 获取发送人的消息
   const room = message.room(); // 获取发送人的房间
-  const toContact = message.to() // 获取接收人的匿名
+  const messageType = message.type(); // 消息类型
   const isByMention = await message.mentionSelf(); //是否被@了
 
-  log.info(botName, `Message:${contact}--- ${sendName} -- ${text} -- ${room} ---${toContact} `);
+  log.info(botName, `Message: 发送人${sendName} -- ${text} -- ${room} ---${messageType} `);
 
   if (text === "打卡") {
     updataIntegral({ user_name: sendName, tyep: 0 }).then(async (res) => {
@@ -99,11 +99,12 @@ async function onMessage (message) {
     }
 
     if(/天气/gm.test(text)){
-      let userCity =  userinfo.result.city;
-      if(userCity.name == ""){
+      console.log(userinfo.result);
+      if(!userinfo.result){
         await message.say("哦~~~，你是不是没有告诉我，你的位置")
         return ;
       }
+      let userCity =  userinfo.result.city;
       const weatherText = (item, type) =>{
         const Status = {
           "01": '☀',
@@ -117,7 +118,7 @@ async function onMessage (message) {
           "50": '🌪️',
         };
        
-        let baseTime = parseTime(item.dt,"{y}年{m}月{d}") ; // 日出
+        let baseTime = parseTime(item.dt,"{y}年{m}月{d}日") ; // 日期
         let sunriseTime = parseTime(item.sunrise,"{h}:{i}:{s}") ; // 日出
         let sunset = parseTime(item.sunset,"{h}:{i}:{s}"); // 日落
         let temp = `当前温度:${item.temp} ℃ `; // 温度范围
@@ -131,11 +132,11 @@ async function onMessage (message) {
         let weatherDescription = item.weather[0].description;
         let icon = Status[item.weather[0].icon.slice(0,2)];
         console.log(item.weather[0].icon, icon);
-        let baseMessage = `坐标：${userCity.name}\n日期：${baseTime}\n今日天气：${weatherDescription} ${icon}`
+        let baseMessage = `坐标：${userCity.name}\n日期：${baseTime}\n今日预计天气：${weatherDescription} ${icon}`
         if(type == "daily"){
           return `${baseMessage}\n日出:${sunriseTime},日落:${sunset}\n${tempRange}\n${wind_speed}\n${wind_deg}\n${pop}\n${rain}\n${uvi}\n\n`
         }else if(type == "hourly"){
-          return `下一个小时天气：${weatherDescription} ${icon}\n${temp}\n${wind_speed}\n${wind_deg}\n${pop}\n\n`
+          return `一小时后预计天气：${weatherDescription} ${icon}\n${temp}\n${wind_speed}\n${wind_deg}\n${pop}\n\n`
         }
 
       }
