@@ -79,9 +79,8 @@ class Weather {
     let weatherDescription = item.weather[0].description;
     let icon = Status[item.weather[0].icon.slice(0, 2)];
     // console.log(item.weather[0].icon, icon);
-    let baseMessage = `坐标：${userCity.name}\n日期：${baseTime}\n今日预计天气：${weatherDescription} ${icon}`;
+    let baseMessage = `坐标：${this.userinfo.result.city.name}\n日期：${baseTime}\n今日预计天气：${weatherDescription} ${icon}`;
 
-    console.log(baseMessage, type);
     if (type == "daily") {
       return `${baseMessage}\n日出:${sunriseTime},日落:${sunset}\n${tempRange}\n${wind_speed}\n${wind_deg}\n${pop}\n${rain}\n${uvi}\n\n`
     } else if (type == "hourly") {
