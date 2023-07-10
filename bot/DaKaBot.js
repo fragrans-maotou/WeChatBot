@@ -57,8 +57,8 @@ async function onMessage (message) {
       // 获取用户的消息+用户@的诉求
       let mentionText = await message.mentionText();
       let userinfo = await userInfo({ wx_id: sendWxId });
-
-      // 创建天气的对象
+      
+      // 天气模块
       let newWeather = new Weather(message, userinfo, mentionText);
       newWeather.messageWeather("天气");
       newWeather.getGeoLocation("我的位置");

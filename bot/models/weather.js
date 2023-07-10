@@ -69,7 +69,7 @@ class Weather extends BaseClass{
     let baseTime = parseTime(item.dt, "{y}年{m}月{d}日"); // 日期
     let sunriseTime = parseTime(item.sunrise, "{h}:{i}:{s}"); // 日出
     let sunset = parseTime(item.sunset, "{h}:{i}:{s}"); // 日落
-    let temp = `当前温度:${item.temp} ℃ `; // 温度范围
+    let temp = `温度:${item.temp} ℃ `; // 温度
     let tempRange = `温度范围:${item.temp.min} ℃ -- ${item.temp.max} ℃ `; // 温度范围
     let wind_speed = `风速度${item.wind_speed}米/秒`; // 风速
     let wind_deg = `吹风角度,北偏南${item.wind_deg}°`; // 吹风的角度
