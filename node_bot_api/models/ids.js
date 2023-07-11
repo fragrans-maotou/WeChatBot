@@ -18,11 +18,11 @@ Ids.findOne().then(data => {
   if (!data) {
     const newIds = new Ids({
       user_id: 0,
-    })
+    });
     newIds.save();
   }
 }).catch(err => {
   throw new Error(err);
-})
+});
 
 export default Ids;

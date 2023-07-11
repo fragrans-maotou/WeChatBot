@@ -25,12 +25,12 @@ app.all("*", (req, res, next) => {
   } else {
     next();
   }
-})
+});
 
 const config = {
   port: 8001,
   url: 'mongodb://localhost:27017/weChat',
-}
+};
 
 app.use(express.json());
 
@@ -41,4 +41,4 @@ db(config);
 
 app.listen(config.port, () => {
   console.log(`${config.port}端口：监听打开了`);
-})
+});

@@ -13,7 +13,7 @@ const handleConfig = (config) => {
     config.data = config.params;
   }
   return config;
-}
+};
 
 // 添加请求拦截器
 service.interceptors.request.use(

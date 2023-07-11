@@ -13,8 +13,8 @@ export const registerUser = (data) => {
     url: "/register_user",
     method: "post",
     params: data
-  })
-}
+  });
+};
 
 // 获取用户信息
 export const userInfo = (data) => {
@@ -22,8 +22,8 @@ export const userInfo = (data) => {
     url: "/user_info",
     method: "get",
     params: data
-  })
-}
+  });
+};
 
 // 获取用户的排名列表
 export const userRankingList = (data) => {
@@ -31,8 +31,8 @@ export const userRankingList = (data) => {
     url: "/user_ranking_list",
     method: "get",
     params: data
-  })
-}
+  });
+};
 
 // 修改积分
 export const updataIntegral = (data) => {
@@ -41,8 +41,8 @@ export const updataIntegral = (data) => {
     url: "/updata_integral",
     method: "get",
     params: data
-  })
-}
+  });
+};
 
 // 修改城市
 export const updataCity = (data) => {
@@ -50,8 +50,8 @@ export const updataCity = (data) => {
     url: "/updata_city",
     method: "get",
     params: data
-  })
-}
+  });
+};
 
 // http://localhost:8001/updata_integral?type=1&user_name=🐯
 

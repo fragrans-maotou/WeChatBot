@@ -1,0 +1,16 @@
+{
+  "name": "wechatbot",
+  "version": "1.0.0",
+  "description": "<!--\r  * @Author: wangwendie\r  * @Date: 2023-07-05 18:12:15\r  * @LastEditors: wangwendie\r  * @Description:\r -->\r # WeChatBot\r 微信使用的小机器人",
+  "main": "index.js",
+  "devDependencies": {
+    "eslint": "^8.44.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

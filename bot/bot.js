@@ -51,18 +51,18 @@ async function onMessage (message) {
       // console.log(` ${sendName}，艾特我，是有什么事情？`)
       if (isRecalled) {
         await message.say(`${sendName}, 我不处理引用消息`);
-        return
+        return;
       }
 
       // 获取用户的消息+用户@的诉求
       let mentionText = await message.mentionText();
       let userinfo = await userInfo({ wx_id: sendWxId });
-      
+
       // 天气模块
       let newWeather = new Weather(message, userinfo, mentionText);
       newWeather.messageWeather("天气");
       newWeather.getGeoLocation("我的位置");
-      
+
       // 打卡模块
       let newSportsCheckin = new SportsCheckin(message, userinfo, mentionText);
       newSportsCheckin.checkin("打卡");
@@ -72,15 +72,15 @@ async function onMessage (message) {
 
       if (/GPT/gm.test(mentionText)) {
         if (sendName != '🐯') {
-          message.say("很抱歉，你权限不足！")
+          message.say("很抱歉，你权限不足！");
           return;
         }
-        let mentionTextReplace = mentionText.replace(/GPT/g, "").trim()
+        let mentionTextReplace = mentionText.replace(/GPT/g, "").trim();
         let chatText = await openAI_2D_chatGPT({
           text: mentionTextReplace
         });
-        await message.say(chatText.result)
-        return
+        await message.say(chatText.result);
+        return;
       }
 
     }
@@ -89,7 +89,7 @@ async function onMessage (message) {
 
 const bot = WechatyBuilder.build({
   name: botName,
-}) // get a Wechaty instance
+}); // get a Wechaty instance
 
 bot
   .on("scan", onScan)
@@ -101,8 +101,8 @@ bot
 bot
   .start()
   .then(() => {
-    log.info(botName, "启动成功")
+    log.info(botName, "启动成功");
   })
   .catch((err) => {
-    log.info(botName, "启动失败:", err)
-  })
+    log.info(botName, "启动失败:", err);
+  });

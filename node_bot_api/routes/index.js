@@ -12,4 +12,4 @@ export default (app) => {
   app.use(user);
   app.use(chatgpt);
   app.use(weather);
-}
+};

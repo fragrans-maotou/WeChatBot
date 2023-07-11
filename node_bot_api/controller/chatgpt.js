@@ -16,7 +16,7 @@ class ChatGPT {
       "max_tokens": 150,
       messages: [{ role: 'user', content: text }],
     });
-    const openapi2d = "https://openai.api2d.net/v1/chat/completions"
+    const openapi2d = "https://openai.api2d.net/v1/chat/completions";
     const result = await request({
       url: openapi2d,
       method: "post",
@@ -32,7 +32,7 @@ class ChatGPT {
       if (result.choices) {
         assistantMessage = result.choices[0].message?.content.replace(/^\n+|\n+$/g, "");
       } else {
-        console.log(`Something went wrong,Code: ${result.status}, ${result.statusText}`)
+        console.log(`Something went wrong,Code: ${result.status}, ${result.statusText}`);
       }
     } catch (err) {
       if (err.request) {
@@ -45,7 +45,7 @@ class ChatGPT {
       code: 200,
       message: '请求成功',
       result: assistantMessage
-    })
+    });
   }
 
   async OpenAIChatGPT (req, res, next) {
@@ -110,10 +110,10 @@ class ChatGPT {
   async BingChatGPT (req, res, next) {
     const api = new BingChat({
       cookie: process.env.BING_COOKIE
-    })
+    });
 
-    const result = await api.sendMessage('Hello World!')
-    console.log(result.text)
+    const result = await api.sendMessage('Hello World!');
+    console.log(result.text);
   }
 }
 

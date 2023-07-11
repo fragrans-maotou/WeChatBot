@@ -22,7 +22,7 @@ const userSchema = new Schema({
     latitude: String
   },
   wx_id:String
-})
+});
 
 userSchema.index({ id: 1 });
 

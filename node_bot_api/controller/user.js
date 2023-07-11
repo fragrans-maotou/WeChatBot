@@ -44,7 +44,7 @@ class User extends BaseComponent {
           latitude:0
         },
         wx_id: wx_id
-      }
+      };
       await UserModel.create(newUser);
       res.send({
         code: 200,
@@ -59,7 +59,7 @@ class User extends BaseComponent {
       res.send({
         code: 0,
         message: err.message
-      })
+      });
       return;
     }
   }
@@ -71,14 +71,14 @@ class User extends BaseComponent {
       res.send({
         code: 200,
         result: userinfo
-      })
+      });
     } catch (err) {
       console.log(err);
       res.send({
         code: 10001, // 用户查找失败或者请求失败
         message: err.message
-      })
-      return
+      });
+      return;
     }
   }
 
@@ -88,19 +88,19 @@ class User extends BaseComponent {
       let userListString = "";
       userList.forEach((userItem, index) => {
         userListString += `${index + 1} 、${userItem.user_name} --- ${userItem.integral} \n`;
-      })
+      });
       res.send({
         code: 200,
         message: '获取用户列表',
         result: userListString
-      })
+      });
     } catch {
       console.log(err);
       res.send({
         code: 0,
         message: err.message
-      })
-      return
+      });
+      return;
     }
   }
 
@@ -118,17 +118,17 @@ class User extends BaseComponent {
             .catch(err => {
               console.error(`更新 ${userItem._id} 失败`, err);
               updateStatus = false;
-            })
+            });
         }
-      })
+      });
       return updateStatus;
     } catch (err) {
       console.error(err);
       res.send({
         code: 0,
         message: err.message
-      })
-      return
+      });
+      return;
     }
   }
 
@@ -152,8 +152,8 @@ class User extends BaseComponent {
       res.send({
         code: 0,
         message: err.message
-      })
-      return
+      });
+      return;
     }
   }
 
@@ -162,8 +162,8 @@ class User extends BaseComponent {
     const [lon, lat] = location.split(",");
     try {
       const resultInfo = await UserModel.updateOne(
-        { wx_id: wx_id }, 
-        { $set: { 
+        { wx_id: wx_id },
+        { $set: {
             city:{
               name: area,
               longitude: lon,
@@ -180,8 +180,8 @@ class User extends BaseComponent {
       res.send({
         code: 0,
         message: err.message
-      })
-      return
+      });
+      return;
     }
   }
 }

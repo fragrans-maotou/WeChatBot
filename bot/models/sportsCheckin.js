@@ -11,10 +11,10 @@ class SportsCheckin extends BaseClass{
     if(!this.activateRule(ruleText)) return ;
     // 打卡用户注册
     registerUser({ user_name: this.senderName , wx_id: this.senderWxId }).then(async (res) => {
-      await this.message.say(res.message)
-    })
-    return
-  }
+      await this.message.say(res.message);
+    });
+    return;
+  };
 
   checkin = async(ruleText) => {
     if(!this.activateRule(ruleText)) return ;
@@ -27,14 +27,14 @@ class SportsCheckin extends BaseClass{
         } else {
           await this.message.say(`${this.senderName}, 我收到了你的打卡，但是打卡失败了，联系开发者`);
         }
-      })
+      });
     }else{
       // this.user 为空就说明没有用户
       await this.message.say(`${this.senderName}, 你都没有注册，先@我说：注册`);
     }
-    
-    return
-  }
+
+    return;
+  };
 
   getMyIntegral = async (ruleText) => {
     if(!this.activateRule(ruleText)) return ;
@@ -44,17 +44,17 @@ class SportsCheckin extends BaseClass{
     } else {
       await this.message.say(`${this.senderName}, \n你目前的积分为：${this.user.integral}`);
     }
-    return
-  }
+    return;
+  };
 
   getRankingList = async(ruleText) =>{
     if(!this.activateRule(ruleText)) return ;
     // 获取全部排行榜
     userRankingList().then(async (res) => {
-      await this.message.say(res.result)
-    })
-    return
-  }
+      await this.message.say(res.result);
+    });
+    return;
+  };
 }
 
 export default SportsCheckin;

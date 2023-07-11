@@ -14,7 +14,7 @@ class Weather extends BaseClass{
     if(!this.activateRule(ruleText)) return ;
 
     if (!this.user) {
-      await this.message.say("哦~~~，你是不是没有告诉我，你的位置，还有你根本没有注册？")
+      await this.message.say("哦~~~，你是不是没有告诉我，你的位置，还有你根本没有注册？");
       return;
     }
     let userCity = this.user.city;
@@ -27,7 +27,7 @@ class Weather extends BaseClass{
 
     // 如果本身没有就没有，从被调用传递了address就有了，就不阻止去调用api
     if(this.user.city.name == "") {
-      await this.message.say("你还没有告诉我，您的位置。@我说：我的位置是XXXXXX")
+      await this.message.say("你还没有告诉我，您的位置。@我说：我的位置是XXXXXX");
       return;
     }
 
@@ -35,21 +35,21 @@ class Weather extends BaseClass{
       let weatherInfo = await weather_api({
         lat: userCity.latitude,
         lon: userCity.longitude
-      })
+      });
 
       let current = weatherInfo.result.current;
       let hourly = weatherInfo.result.hourly;
       let daily = weatherInfo.result.daily;
-      let messageDailyTemplate = this.weatherText(daily[0], "daily")
-      let messageHourlyTemplate = this.weatherText(hourly[1], "hourly")
+      let messageDailyTemplate = this.weatherText(daily[0], "daily");
+      let messageHourlyTemplate = this.weatherText(hourly[1], "hourly");
       await this.message.say(messageDailyTemplate + "\n" + messageHourlyTemplate);
 
     } catch (err) {
 
-      await this.message.say("哼狗天气api，出问题了，🐎")
-      
+      await this.message.say("哼狗天气api，出问题了，🐎");
+
     }
-  }
+  };
 
   // 获取天气String
   weatherText = (item, type) => {
@@ -83,11 +83,11 @@ class Weather extends BaseClass{
     let baseMessage = `坐标：${this.user.city.name}\n日期：${baseTime}\n今日预计天气：${weatherDescription} ${icon}`;
 
     if (type == "daily") {
-      return `${baseMessage}\n日出:${sunriseTime},日落:${sunset}\n${tempRange}\n${wind_speed}\n${wind_deg}\n${pop}\n${rain}\n${uvi}\n\n`
+      return `${baseMessage}\n日出:${sunriseTime},日落:${sunset}\n${tempRange}\n${wind_speed}\n${wind_deg}\n${pop}\n${rain}\n${uvi}\n\n`;
     } else if (type == "hourly") {
-      return `一小时后预计天气：${weatherDescription} ${icon}\n${temp}\n${wind_speed}\n${wind_deg}\n${pop}\n\n`
+      return `一小时后预计天气：${weatherDescription} ${icon}\n${temp}\n${wind_speed}\n${wind_deg}\n${pop}\n\n`;
     }
-  }
+  };
 
   // 获取地理位置
   getGeoLocation = async (ruleText) =>{
@@ -96,11 +96,11 @@ class Weather extends BaseClass{
 
     try {
       let resultGeo = await geocode({ area: this.mentionText });
-      
+
       if (resultGeo.code == 10001) {
         // 10001 请求数据失败
-        await this.message.say(resultGeo.message)
-        return
+        await this.message.say(resultGeo.message);
+        return;
       }
       let location = resultGeo.result.location;
       let formatted_address = resultGeo.result.formatted_address;
@@ -116,10 +116,10 @@ class Weather extends BaseClass{
       await this.messageWeather(ruleText, formatted_address, location);
 
     } catch (error) {
-      await this.message.say("哈，不怪我，位置报错失败了！")
+      await this.message.say("哈，不怪我，位置报错失败了！");
     }
-    return
-  }
+    return;
+  };
 
 }
 

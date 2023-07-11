@@ -3,7 +3,7 @@ class BaseClass{
   constructor(message, userinfo, mentionText){
     this.message = message;
     this.senderName = message.talker().payload.name;
-    this.senderWxId = message.talker().payload.id
+    this.senderWxId = message.talker().payload.id;
     this.user = userinfo.result;
     this.mentionText = mentionText;
   }
@@ -11,7 +11,7 @@ class BaseClass{
   activateRule = (ruleText) => {
     let rultRegex = new RegExp(ruleText, 'gm');
     return rultRegex.test(this.mentionText);
-  }
+  };
 
 }
 
