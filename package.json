@@ -1,16 +1,25 @@
 {
   "name": "wechatbot",
   "version": "1.0.0",
-  "description": "<!--\r  * @Author: wangwendie\r  * @Date: 2023-07-05 18:12:15\r  * @LastEditors: wangwendie\r  * @Description:\r -->\r # WeChatBot\r 微信使用的小机器人",
-  "main": "index.js",
-  "devDependencies": {
-    "eslint": "^8.44.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.27.5"
-  },
+  "description": "微信使用的小机器人",
+  "main": "DaKaBot.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node DaKaBot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1621151730/WeChatBot.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1621151730/WeChatBot/issues"
+  },
+  "homepage": "https://github.com/1621151730/WeChatBot#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "qrcode-terminal": "^0.12.0",
+    "wechaty": "^1.20.2"
+  }
 }
