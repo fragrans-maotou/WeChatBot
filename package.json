@@ -5,7 +5,7 @@
   "main": "DaKaBot.js",
   "type": "module",
   "scripts": {
-    "dev": "node DaKaBot.js"
+    "dev": "node bot.js"
   },
   "repository": {
     "type": "git",
