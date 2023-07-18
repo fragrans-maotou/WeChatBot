@@ -53,5 +53,33 @@ export const updataCity = (data) => {
   });
 };
 
+// 上传用户头像
+export const uploadUserProfile = (data) => {
+  return request({
+    url: "/upload_user_profile",
+    method: "post",
+    params: data
+  });
+};
+
+// 打卡记录返回图片
+
+export const getTemplateCapture = (data) => {
+  return request({
+    url: "/get_template_capture",
+    method: "get",
+    params: data
+  });
+};
+
+// 更新打卡列表
+export const updataSinginList = (data) => {
+  return request({
+    url: "/updata_singin_list",
+    method: "get",
+    params: data
+  });
+};
+
 // http://localhost:8001/updata_integral?type=1&user_name=🐯
 

@@ -3,7 +3,7 @@ import { updataCity } from "../api/user.js";
 import { parseTime } from "../utils/common.js";
 import BaseClass from "./baseclass.js";
 
-class Weather extends BaseClass{
+class Weather extends BaseClass {
 
   constructor(message, userinfo, mentionText) {
     super(message, userinfo, mentionText);
@@ -11,7 +11,7 @@ class Weather extends BaseClass{
 
   // 天气
   messageWeather = async (ruleText, address, location = "") => {
-    if(!this.activateRule(ruleText)) return ;
+    if (!this.activateRule(ruleText)) return;
 
     if (!this.user) {
       await this.message.say("哦~~~，你是不是没有告诉我，你的位置，还有你根本没有注册？");
@@ -26,7 +26,7 @@ class Weather extends BaseClass{
     }
 
     // 如果本身没有就没有，从被调用传递了address就有了，就不阻止去调用api
-    if(this.user.city.name == "") {
+    if (this.user.city.name == "") {
       await this.message.say("你还没有告诉我，您的位置。@我说：我的位置是XXXXXX");
       return;
     }
@@ -90,9 +90,9 @@ class Weather extends BaseClass{
   };
 
   // 获取地理位置
-  getGeoLocation = async (ruleText) =>{
+  getGeoLocation = async (ruleText) => {
 
-    if(!this.activateRule(ruleText)) return ;
+    if (!this.activateRule(ruleText)) return;
 
     try {
       let resultGeo = await geocode({ area: this.mentionText });

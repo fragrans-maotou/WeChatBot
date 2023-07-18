@@ -2,10 +2,11 @@
   "name": "wechatbot",
   "version": "1.0.0",
   "description": "微信使用的小机器人",
-  "main": "DaKaBot.js",
+  "main": "bot.js",
   "type": "module",
   "scripts": {
-    "dev": "node bot.js"
+    "dev": "node ./src/bot.js",
+    "build": "webpack --config webpack.config.cjs"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,18 @@
   "homepage": "https://github.com/1621151730/WeChatBot#readme",
   "dependencies": {
     "axios": "^1.4.0",
+    "chalk": "^5.3.0",
     "qrcode-terminal": "^0.12.0",
     "wechaty": "^1.20.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
+    "@babel/register": "^7.22.5",
+    "babel-loader": "^9.1.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0"
   }
 }

@@ -1,3 +1,7 @@
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
+
+
 /**
  * 将时间戳解析为字符串时间
  * @param {(Object|string|number)} time
@@ -47,4 +51,22 @@ export function parseTime(time, cFormat) {
     return value.toString().padStart(2, "0");
   });
   return time_str;
+}
+
+
+export function getSrcDirectory(filePath){
+  let arrayFilePathName = filePath.split("/");
+  // 获取当前模块的文件 URL
+  const currentFileUrl = import.meta.url;
+  // 将文件 URL 转换为文件路径
+  const currentFilePath = fileURLToPath(currentFileUrl);
+  // 获取当前路径 util
+  const currentDirectory = dirname(currentFilePath);
+  // 获取上级目录路径src
+  const parentDirectory = resolve(currentDirectory, '..');
+  // 获取传递的路劲
+  const fileDirectory = resolve(parentDirectory, ...arrayFilePathName);
+  console.log('当前 路径:', fileDirectory);
+  return fileDirectory;
+  
 }
